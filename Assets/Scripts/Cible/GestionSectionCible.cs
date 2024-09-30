@@ -1,16 +1,20 @@
 using UnityEngine;
 
-public class GestionSectionCible : MonoBehaviour
-{
-   [SerializeField] int ValeurPointage;
-   // constantes et attributs à compléter
-   public void InitialiserSectionCible(GestionPointage scriptPointage)
-   {
-      // à compléter
-   }
+public class GestionSectionCible : MonoBehaviour {
+    [SerializeField] int ValeurPointage;
 
-   private void OnCollisionEnter(Collision collision)
-   {
-      // à compléter
-   }
+    GestionPointage script = null;
+
+    public void InitialiserSectionCible(GestionPointage scriptPointage) {
+        script = scriptPointage;
+
+        script.InitialiserPointage(ValeurPointage);
+
+    }
+
+    private void OnCollisionEnter(Collision collision) {
+        //if (projectile) 
+        script.ModifierPointage(ValeurPointage);
+
+    }
 }

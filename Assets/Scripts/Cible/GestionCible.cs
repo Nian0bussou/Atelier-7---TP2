@@ -3,22 +3,25 @@ using UnityEngine;
 
 public class GestionCible : MonoBehaviour
 {
-   [SerializeField] float VitesseAngulaire = 180;
-   FsmJeu gameManagerScript { get; set; }
- 
-   void Update()
-   {
-      // à compléter
-   }
+    [SerializeField] float VitesseAngulaire = 180;
+    FsmJeu gameManagerScript { get; set; }
 
-   public void InitialiserComportementCible(GestionPointage scriptPointage, GameObject gameManager)
-   {
-      gameManagerScript = gameManager.GetComponent<FsmJeu>();
-      GestionSectionCible[] cibles = GetComponentsInChildren<GestionSectionCible>();
-      cibles.First<GestionSectionCible>(X => X.gameObject.name == "CibleExtérieure").InitialiserSectionCible(scriptPointage);
-      cibles.First<GestionSectionCible>(X => X.gameObject.name == "CibleMédiane").InitialiserSectionCible(scriptPointage);
-      cibles.First<GestionSectionCible>(X => X.gameObject.name == "CibleIntérieure").InitialiserSectionCible(scriptPointage);
-   }
+    void Update()
+    {
 
-   public void DétruireCible() => gameManagerScript.DétruireCible(gameObject);
+        transform.Rotate(new Vector3(0, 0, VitesseAngulaire) * Time.deltaTime);
+
+    }
+
+
+    public void InitialiserComportementCible(GestionPointage scriptPointage, GameObject gameManager)
+    {
+        gameManagerScript = gameManager.GetComponent<FsmJeu>();
+        GestionSectionCible[] cibles = GetComponentsInChildren<GestionSectionCible>();
+        cibles.First<GestionSectionCible>(X => X.gameObject.name == "CibleExtï¿½rieure").InitialiserSectionCible(scriptPointage);
+        cibles.First<GestionSectionCible>(X => X.gameObject.name == "CibleMï¿½diane").InitialiserSectionCible(scriptPointage);
+        cibles.First<GestionSectionCible>(X => X.gameObject.name == "CibleIntï¿½rieure").InitialiserSectionCible(scriptPointage);
+    }
+
+    public void DÃ©truireCible() => gameManagerScript.DÃ©truireCible(gameObject);
 }
