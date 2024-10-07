@@ -305,3 +305,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   "Dur\xE9eDeVie": 2
   Explosion: {fileID: 9108092247592312525, guid: 2626655deab7b3b4fb62403fbcd06c1d, type: 3}
+  destroyProjectile:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5253326777819053695, guid: 09f29f7cb0aa6e541a94d05230a35289, type: 3}
+        m_TargetAssemblyTypeName: ActionVaisseau, Assembly-CSharp
+        m_MethodName: "D\xE9truireProjectile"
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8575848205406426962}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

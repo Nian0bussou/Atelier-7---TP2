@@ -14,8 +14,8 @@ public class GestionSectionCible : MonoBehaviour {
 
     }
 
-    private void OnCollisionEnter(Collision othercoll) {
-        if (othercoll.gameObject.layer == projectileLayer) {
+    private void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.layer == projectileLayer) {
             script.ModifierPointage(ValeurPointage);
         }
     }
