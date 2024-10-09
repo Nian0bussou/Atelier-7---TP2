@@ -10,7 +10,10 @@ public class ComportementVaisseau : MonoBehaviour {
     GestionPointage ScriptPointage { get; set; }
     GameObject KarenGameManager { get; set; }
 
+
     [SerializeField] GameObject destGameObj;
+
+    FsmJeu fsmJeu = null;
 
     int caisselayer = 6;
     int ciblelayer = 7;
@@ -20,6 +23,8 @@ public class ComportementVaisseau : MonoBehaviour {
 
         ScriptPointage = scriptPointage;
         KarenGameManager = gameManager;
+
+        fsmJeu = KarenGameManager.GetComponent<FsmJeu>();
     }
 
     private void OnCollisionEnter(Collision collision) {
@@ -42,6 +47,7 @@ public class ComportementVaisseau : MonoBehaviour {
 
             if (contact.thisCollider == destcoll) {
 
+                fsmJeu.TrouverDestination();
             }
         }
 

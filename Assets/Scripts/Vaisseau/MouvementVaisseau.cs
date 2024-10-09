@@ -68,10 +68,10 @@ public class MouvementVaisseau : MonoBehaviour {
         // Le paramètre commutateur permet d'allumer ou d'éteindre les rétrofusées impliqués dans la manoeuvre (simulation visuelle)
         // Indice : dans cette méthode, il est possible de "tricher" en réinitialisant la vitesse angulaire à la fin de la manoeuvre
         //          cela rendra le vaisseau plus manoeuvrable.
-
-        var pros = transform.rotation;
-
-        transform.rotation = Quaternion.Euler(0, pros.y - 10, 0);
+        CorpsVaisseau.AddRelativeTorque(forceRétrofusée * Time.deltaTime * new Vector3(0, -1, 0), ForceMode.VelocityChange);
+        Rétrofusées[RétroAvantGauche].enabled = commutateur;
+        Rétrofusées[RétroArrièreDroite].enabled = commutateur;
+        CorpsVaisseau.angularVelocity = Vector3.zero;
     }
 
     public void PivoterVersLaDroite(bool commutateur) {
@@ -79,25 +79,52 @@ public class MouvementVaisseau : MonoBehaviour {
         // Le paramètre commutateur permet d'allumer ou d'éteindre les rétrofusées impliqués dans la manoeuvre (simulation visuelle)
         // Indice : dans cette méthode, il est possible de "tricher" en réinitialisant la vitesse angulaire à la fin de la manoeuvre
         //          cela rendra le vaisseau plus manoeuvrable.
+        CorpsVaisseau.AddRelativeTorque(forceRétrofusée * Time.deltaTime * new Vector3(0, 1, 0), ForceMode.VelocityChange);
+        Rétrofusées[RétroAvantDroite].enabled = commutateur;
+        Rétrofusées[RétroArrièreGauche].enabled = commutateur;
+        CorpsVaisseau.angularVelocity = Vector3.zero;
     }
 
     public void Avancer(bool commutateur) {
         // Cette méthode permet de faire avancer le vaisseau par l'application de force (simulation physique)
         // Le paramètre commutateur permet d'allumer ou d'éteindre les réacteurs impliqués dans la manoeuvre (simulation visuelle)
+
+        CorpsVaisseau.AddRelativeForce(forceRéacteurs * Time.deltaTime * new Vector3(0, 0, 1), ForceMode.VelocityChange);
+
+        Réacteurs[RéacteurBasDroite].enabled = commutateur;
+        Réacteurs[RéacteurBasGauche].enabled = commutateur;
+
+        Rétrofusées[RétroArrièreDroite].enabled = commutateur;
+        Rétrofusées[RétroArrièreGauche].enabled = commutateur;
+
+        CorpsVaisseau.velocity = Vector3.zero;
     }
 
     public void Reculer(bool commutateur) {
         // Cette méthode permet de faire reculer le vaisseau par l'application de force (simulation physique)
         // Le paramètre commutateur permet d'allumer ou d'éteindre les rétrofusées impliqués dans la manoeuvre (simulation visuelle)
+
+        CorpsVaisseau.AddRelativeForce(forceRéacteurs * Time.deltaTime * new Vector3(0, 0, -1), ForceMode.VelocityChange);
+        Réacteurs[RéacteurBasDroite].enabled = commutateur;
+        Réacteurs[RéacteurBasGauche].enabled = commutateur;
+        CorpsVaisseau.velocity = Vector3.zero;
     }
 
     public void GlisserVersLaGauche(bool commutateur) {
         // Cette méthode permet de faire glisser le vaisseau vers la gauche par l'application de force (simulation physique)
         // Le paramètre commutateur permet d'allumer ou d'éteindre les rétrofusées impliqués dans la manoeuvre (simulation visuelle)
+        CorpsVaisseau.AddRelativeForce(forceRéacteurs * Time.deltaTime * new Vector3(-1, 0, 0), ForceMode.VelocityChange);
+        Rétrofusées[RétroAvantDroite].enabled = commutateur;
+        Rétrofusées[RétroArrièreDroite].enabled = commutateur;
+        CorpsVaisseau.velocity = Vector3.zero;
     }
 
     public void GlisserVersLaDroite(bool commutateur) {
         // Cette méthode permet de faire glisser le vaisseau vers la droite  par l'application de force (simulation physique)
         // Le paramètre commutateur permet d'allumer ou d'éteindre les rétrofusées impliqués dans la manoeuvre (simulation visuelle)
+        CorpsVaisseau.AddRelativeForce(forceRéacteurs * Time.deltaTime * new Vector3(1, 0, 0), ForceMode.VelocityChange);
+        Rétrofusées[RétroAvantGauche].enabled = commutateur;
+        Rétrofusées[RétroArrièreGauche].enabled = commutateur;
+        CorpsVaisseau.velocity = Vector3.zero;
     }
 }

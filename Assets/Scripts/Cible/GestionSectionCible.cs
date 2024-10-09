@@ -7,15 +7,25 @@ public class GestionSectionCible : MonoBehaviour {
 
     GestionPointage script = null;
 
+    FsmJeu fsmJeu;
+
     public void InitialiserSectionCible(GestionPointage scriptPointage) {
         script = scriptPointage;
         script.InitialiserPointage(ValeurPointage);
     }
 
     private void OnCollisionEnter(Collision collision) {
+
+
         if (collision.gameObject.layer == projectileLayer) {
-            script.ModifierPointage(ValeurPointage);
-            //FsmJeu.DétruireCible(/* not sure what to put here */);
+            print("passed the if"); // got here
+
+            //script.ModifierPointage(ValeurPointage);
+
+
+            var gestioncible = GetComponentInParent<GestionCible>();
+
+            gestioncible.DétruireCible();
         }
     }
 }

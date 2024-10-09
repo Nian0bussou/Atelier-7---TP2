@@ -85,6 +85,7 @@ public class FsmJeu : MonoBehaviour {
                 CréerCaisses();
                 CréerCibles();
                 CréerMines();
+                CréerDestination(); // was not there before making the destination not appear when creating a lever
                 InitialiserVaisseau();
                 EstNiveauTerminé = false;
                 EstJeuTerminé = false;
@@ -172,7 +173,7 @@ public class FsmJeu : MonoBehaviour {
         var count = 0;
 
         foreach (var c in cibls) {
-            Instantiate(Cible, new(c.X, 0, c.Z), Quaternion.Euler(Vector3.zero));
+            Instantiate(Cible, new(c.X, 0, c.Z), Quaternion.Euler(90, 0, 0));
             count++;
         }
 
@@ -183,8 +184,9 @@ public class FsmJeu : MonoBehaviour {
     public void DétruireCible(GameObject cible) {
         // Cette méthode permet de détruire une cible. 
         // Elle est appelée lors de la collision du projectile avec une section de la cible (script GestionSectionCible)
-        Destroy(cible);
         NbCiblesNiveau--;
+        print("in  destroy cible");
+        Destroy(cible);
     }
 
     private void CréerMines() {
@@ -212,17 +214,12 @@ public class FsmJeu : MonoBehaviour {
     private void CréerDestination() {
         // Cette méthode permet d'instancier le prefab symbolisant la destination ultime.
         // Indice : l'objet CarteNiveau connait l'information nécessaire à la création de ce GameObject.
-
         var pos = CarteNiveau.PositionDestination;
         Instantiate(Destination, new(pos.X, 0, pos.Z), Quaternion.Euler(Vector3.zero));
-
-        print(pos);
-        // TODO not workin
     }
 
-    public void TrouverDestination() {
+    public void TrouverDestination() =>
         EstJeuTerminé = true;
-    }
 
     private void InitialiserVaisseau() {
         Vaisseau.transform.SetPositionAndRotation(new Vector3(CarteNiveau.PositionSource.X, 0, CarteNiveau.PositionSource.Z), Quaternion.identity);

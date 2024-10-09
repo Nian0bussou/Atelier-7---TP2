@@ -9,42 +9,51 @@ public class ActionVaisseau : MonoBehaviour {
 
     // Attributs à compléter
 
-    float timepassed = 0;
+    float timesincelastshot = 0;
 
-    public int nbProjectiles = 0;
+    int nbProjectiles = 0;
+
+
+    Rigidbody rvaisseau;
+    GameObject Canon;
 
 
     private void Awake() {
-        // À compléter
+        rvaisseau = GetComponent<Rigidbody>();
+        Canon = GameObject.Find("Canon");
+
     }
 
     private void Update() {
-        // À compléter
-        timepassed += Time.deltaTime;
+        timesincelastshot += Time.deltaTime;
     }
 
     public void Tirer() {
         InstantiateProj();
-        ApplyForce();
     }
 
     public void DétruireProjectile(GameObject projectile) {
-        if (nbProjectiles > 0)
-            nbProjectiles--;
+        nbProjectiles--;
         Destroy(projectile);
     }
 
     void InstantiateProj() {
-        if (timepassed > DélaiDeRecharge /*&& nbProjectiles < NbProjectilesMax*/) {
-            Instantiate(Projectile, transform.position, transform.rotation);
+        if (timesincelastshot > DélaiDeRecharge && nbProjectiles < NbProjectilesMax) {
+            var p = Instantiate(Projectile, Canon.transform.position, transform.rotation);
+
             nbProjectiles++;
-            timepassed = 0;
+            timesincelastshot = 0;
+
+            var script = p.GetComponent<ActionProjectile>();
+
+            script.InscrireProjectile(gameObject);
+            ApplyForce(p);
         }
     }
 
-    private void ApplyForce() {
-        Projectile.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, 0, ForceImpulsionProjectile), ForceMode.Impulse);
-        timepassed = 0;
+    private void ApplyForce(GameObject p) {
+        p.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, 0, ForceImpulsionProjectile), ForceMode.Impulse);
+        timesincelastshot = 0;
     }
 
 
