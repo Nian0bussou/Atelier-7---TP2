@@ -15,7 +15,6 @@ public class GestionPointage : MonoBehaviour {
 
     public void ModifierPointage(int modification) {
         ValeurPointage += modification;
-
         TableauPointage.text = $"{ValeurPointage}";
     }
 

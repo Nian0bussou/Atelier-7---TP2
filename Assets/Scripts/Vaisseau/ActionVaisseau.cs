@@ -20,6 +20,7 @@ public class ActionVaisseau : MonoBehaviour {
 
     private void Update() {
         // À compléter
+        timepassed += Time.deltaTime;
     }
 
     public void Tirer() {
@@ -33,15 +34,12 @@ public class ActionVaisseau : MonoBehaviour {
         Destroy(projectile);
     }
 
-    // il est fort probable que vous ayiez besoin de méthodes supplémentaires
-
     void InstantiateProj() {
-        if (timepassed > DélaiDeRecharge && nbProjectiles < NbProjectilesMax) {
+        if (timepassed > DélaiDeRecharge /*&& nbProjectiles < NbProjectilesMax*/) {
             Instantiate(Projectile, transform.position, transform.rotation);
             nbProjectiles++;
             timepassed = 0;
         }
-        timepassed += Time.deltaTime;
     }
 
     private void ApplyForce() {

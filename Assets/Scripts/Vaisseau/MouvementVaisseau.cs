@@ -47,9 +47,13 @@ public class MouvementVaisseau : MonoBehaviour {
         // Cette méthodes retourne la référence sur le TrailRenderer
         // lié à un propulseur (réacteur ou rétrofusée) identifié par son nom.
 
-
-
-        return null; // Cette instruction est évidemment à modifier
+        for (int i = 0;i < dataTransform.Length;i++) {
+            var t = dataTransform[i];
+            if (t.name == idPropulseur) {
+                return t.GetComponent<TrailRenderer>();
+            }
+        }
+        return null!; // not sure about that one
     }
 
     private void ÉteindrePropulseur(TrailRenderer[] propulseurs) {
@@ -64,6 +68,10 @@ public class MouvementVaisseau : MonoBehaviour {
         // Le paramètre commutateur permet d'allumer ou d'éteindre les rétrofusées impliqués dans la manoeuvre (simulation visuelle)
         // Indice : dans cette méthode, il est possible de "tricher" en réinitialisant la vitesse angulaire à la fin de la manoeuvre
         //          cela rendra le vaisseau plus manoeuvrable.
+
+        var pros = transform.rotation;
+
+        transform.rotation = Quaternion.Euler(0, pros.y - 10, 0);
     }
 
     public void PivoterVersLaDroite(bool commutateur) {

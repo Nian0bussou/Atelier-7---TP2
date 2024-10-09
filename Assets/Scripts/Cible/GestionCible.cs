@@ -1,21 +1,16 @@
 using System.Linq;
 using UnityEngine;
 
-public class GestionCible : MonoBehaviour
-{
+public class GestionCible : MonoBehaviour {
     [SerializeField] float VitesseAngulaire = 180;
     FsmJeu gameManagerScript { get; set; }
 
-    void Update()
-    {
-
+    void Update() {
         transform.Rotate(new Vector3(0, 0, VitesseAngulaire) * Time.deltaTime);
-
     }
 
 
-    public void InitialiserComportementCible(GestionPointage scriptPointage, GameObject gameManager)
-    {
+    public void InitialiserComportementCible(GestionPointage scriptPointage, GameObject gameManager) {
         gameManagerScript = gameManager.GetComponent<FsmJeu>();
         GestionSectionCible[] cibles = GetComponentsInChildren<GestionSectionCible>();
         cibles.First<GestionSectionCible>(X => X.gameObject.name == "CibleExt�rieure").InitialiserSectionCible(scriptPointage);
