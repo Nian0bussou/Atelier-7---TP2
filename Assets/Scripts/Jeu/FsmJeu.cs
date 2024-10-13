@@ -51,7 +51,6 @@ public class FsmJeu : MonoBehaviour {
     private void Start() => ScriptGestionPointage = Pointage.GetComponent<GestionPointage>();
 
     void Update() {
-        print($"{ÉtatActuel} : Nb cibles {NbCiblesNiveau}");
         ActionsÉtat[(int) ÉtatActuel]();
     }
     private void InitialiserActionsÉtat() {

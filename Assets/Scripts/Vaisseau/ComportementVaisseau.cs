@@ -42,9 +42,7 @@ public class ComportementVaisseau : MonoBehaviour {
 
         var conts = collision.contacts;
         foreach (var contact in conts) {
-            print("contact");
             if (contact.otherCollider.gameObject.layer == dest_layer) {
-                print("dest contact");
                 fsmJeu.TrouverDestination();
             }
         }

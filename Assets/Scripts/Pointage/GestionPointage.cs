@@ -11,11 +11,9 @@ public class GestionPointage : MonoBehaviour {
 
     public void InitialiserPointage(int valeurInitiale) {
         ValeurPointage = valeurInitiale;
-        print(ValeurPointage);
     }
 
     public void ModifierPointage(int modification) {
-        print($"Got : {modification}");
         ValeurPointage += modification;
         TableauPointage.text = $"{ValeurPointage}";
 
