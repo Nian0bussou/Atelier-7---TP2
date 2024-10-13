@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public class GestionPointage : MonoBehaviour {
-    TextMesh TableauPointage;
+    [SerializeField] TextMesh TableauPointage;
 
     public int ValeurPointage { get; private set; }
     void Awake() {
@@ -11,11 +11,14 @@ public class GestionPointage : MonoBehaviour {
 
     public void InitialiserPointage(int valeurInitiale) {
         ValeurPointage = valeurInitiale;
+        print(ValeurPointage);
     }
 
     public void ModifierPointage(int modification) {
+        print($"Got : {modification}");
         ValeurPointage += modification;
         TableauPointage.text = $"{ValeurPointage}";
+
     }
 
 }

@@ -11,9 +11,10 @@ public class ComportementVaisseau : MonoBehaviour {
     GameObject KarenGameManager { get; set; }
 
 
-    [SerializeField] GameObject destGameObj;
+    [SerializeField] int dest_layer = 8;
 
     FsmJeu fsmJeu = null;
+
 
     int caisselayer = 6;
     int ciblelayer = 7;
@@ -36,17 +37,14 @@ public class ComportementVaisseau : MonoBehaviour {
         if (collision.gameObject.layer == caisselayer ||
             collision.gameObject.layer == ciblelayer) {
 
-            ScriptPointage.ModifierPointage(PénalitéCollision);
+            ScriptPointage.ModifierPointage(-PénalitéCollision);
         }
 
         var conts = collision.contacts;
-
-        var destcoll = destGameObj.GetComponent<Collider>();
-
         foreach (var contact in conts) {
-
-            if (contact.thisCollider == destcoll) {
-
+            print("contact");
+            if (contact.otherCollider.gameObject.layer == dest_layer) {
+                print("dest contact");
                 fsmJeu.TrouverDestination();
             }
         }

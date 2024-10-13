@@ -71,7 +71,7 @@ public class MouvementVaisseau : MonoBehaviour {
         CorpsVaisseau.AddRelativeTorque(forceRétrofusée * Time.deltaTime * new Vector3(0, -1, 0), ForceMode.VelocityChange);
         Rétrofusées[RétroAvantGauche].enabled = commutateur;
         Rétrofusées[RétroArrièreDroite].enabled = commutateur;
-        CorpsVaisseau.angularVelocity = Vector3.zero;
+        SetVelocityToZero();
     }
 
     public void PivoterVersLaDroite(bool commutateur) {
@@ -82,7 +82,7 @@ public class MouvementVaisseau : MonoBehaviour {
         CorpsVaisseau.AddRelativeTorque(forceRétrofusée * Time.deltaTime * new Vector3(0, 1, 0), ForceMode.VelocityChange);
         Rétrofusées[RétroAvantDroite].enabled = commutateur;
         Rétrofusées[RétroArrièreGauche].enabled = commutateur;
-        CorpsVaisseau.angularVelocity = Vector3.zero;
+        SetVelocityToZero();
     }
 
     public void Avancer(bool commutateur) {
@@ -97,7 +97,7 @@ public class MouvementVaisseau : MonoBehaviour {
         Rétrofusées[RétroArrièreDroite].enabled = commutateur;
         Rétrofusées[RétroArrièreGauche].enabled = commutateur;
 
-        CorpsVaisseau.velocity = Vector3.zero;
+        SetVelocityToZero();
     }
 
     public void Reculer(bool commutateur) {
@@ -105,9 +105,9 @@ public class MouvementVaisseau : MonoBehaviour {
         // Le paramètre commutateur permet d'allumer ou d'éteindre les rétrofusées impliqués dans la manoeuvre (simulation visuelle)
 
         CorpsVaisseau.AddRelativeForce(forceRéacteurs * Time.deltaTime * new Vector3(0, 0, -1), ForceMode.VelocityChange);
-        Réacteurs[RéacteurBasDroite].enabled = commutateur;
-        Réacteurs[RéacteurBasGauche].enabled = commutateur;
-        CorpsVaisseau.velocity = Vector3.zero;
+        Réacteurs[RéacteurHautDroite].enabled = commutateur;
+        Réacteurs[RéacteurHautGauche].enabled = commutateur;
+        SetVelocityToZero();
     }
 
     public void GlisserVersLaGauche(bool commutateur) {
@@ -116,7 +116,7 @@ public class MouvementVaisseau : MonoBehaviour {
         CorpsVaisseau.AddRelativeForce(forceRéacteurs * Time.deltaTime * new Vector3(-1, 0, 0), ForceMode.VelocityChange);
         Rétrofusées[RétroAvantDroite].enabled = commutateur;
         Rétrofusées[RétroArrièreDroite].enabled = commutateur;
-        CorpsVaisseau.velocity = Vector3.zero;
+        SetVelocityToZero();
     }
 
     public void GlisserVersLaDroite(bool commutateur) {
@@ -125,6 +125,12 @@ public class MouvementVaisseau : MonoBehaviour {
         CorpsVaisseau.AddRelativeForce(forceRéacteurs * Time.deltaTime * new Vector3(1, 0, 0), ForceMode.VelocityChange);
         Rétrofusées[RétroAvantGauche].enabled = commutateur;
         Rétrofusées[RétroArrièreGauche].enabled = commutateur;
-        CorpsVaisseau.velocity = Vector3.zero;
+        SetVelocityToZero();
     }
+
+    void SetVelocityToZero() {
+        CorpsVaisseau.velocity = Vector3.zero;
+        CorpsVaisseau.angularVelocity = Vector3.zero;
+    }
+
 }

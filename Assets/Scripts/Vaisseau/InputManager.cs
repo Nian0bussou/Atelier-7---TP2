@@ -11,10 +11,6 @@ public class InputManager : MonoBehaviour {
     delegate bool ActionPropulseur(KeyCode touche);
     delegate bool ActionVaisseau(KeyCode touche);
 
-    void FixedUpdate() {
-        //GérerActionPropulseurs(Input.GetKey, true);
-        //GérerActionPropulseurs(Input.GetKeyUp, false);
-    }
 
     void Update() {
         GérerActionPropulseurs(Input.GetKey, true);

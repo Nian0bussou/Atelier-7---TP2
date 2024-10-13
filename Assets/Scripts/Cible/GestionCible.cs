@@ -13,9 +13,9 @@ public class GestionCible : MonoBehaviour {
     public void InitialiserComportementCible(GestionPointage scriptPointage, GameObject gameManager) {
         gameManagerScript = gameManager.GetComponent<FsmJeu>();
         GestionSectionCible[] cibles = GetComponentsInChildren<GestionSectionCible>();
-        cibles.First<GestionSectionCible>(X => X.gameObject.name == "CibleExt�rieure").InitialiserSectionCible(scriptPointage);
-        cibles.First<GestionSectionCible>(X => X.gameObject.name == "CibleM�diane").InitialiserSectionCible(scriptPointage);
-        cibles.First<GestionSectionCible>(X => X.gameObject.name == "CibleInt�rieure").InitialiserSectionCible(scriptPointage);
+        cibles.First<GestionSectionCible>(X => X.gameObject.name == "CibleExtérieure").InitialiserSectionCible(scriptPointage);
+        cibles.First<GestionSectionCible>(X => X.gameObject.name == "CibleMédiane").InitialiserSectionCible(scriptPointage);
+        cibles.First<GestionSectionCible>(X => X.gameObject.name == "CibleIntérieure").InitialiserSectionCible(scriptPointage);
     }
 
     public void DétruireCible() => gameManagerScript.DétruireCible(gameObject);

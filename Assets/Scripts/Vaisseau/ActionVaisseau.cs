@@ -21,7 +21,6 @@ public class ActionVaisseau : MonoBehaviour {
     private void Awake() {
         rvaisseau = GetComponent<Rigidbody>();
         Canon = GameObject.Find("Canon");
-
     }
 
     private void Update() {

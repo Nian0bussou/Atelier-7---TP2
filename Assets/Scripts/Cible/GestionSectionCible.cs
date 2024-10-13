@@ -5,26 +5,19 @@ public class GestionSectionCible : MonoBehaviour {
     [SerializeField] int ValeurPointage;
     [SerializeField] int projectileLayer = 9;
 
-    GestionPointage script = null;
-
-    FsmJeu fsmJeu;
+    GestionCible gestioncible;
+    GestionPointage _script;
+    GestionPointage Script { get; set; }
 
     public void InitialiserSectionCible(GestionPointage scriptPointage) {
-        script = scriptPointage;
-        script.InitialiserPointage(ValeurPointage);
+        Script = scriptPointage;
+        Script.InitialiserPointage(ValeurPointage);
+        gestioncible = GetComponentInParent<GestionCible>();
     }
 
     private void OnCollisionEnter(Collision collision) {
-
-
         if (collision.gameObject.layer == projectileLayer) {
-            print("passed the if"); // got here
-
-            //script.ModifierPointage(ValeurPointage);
-
-
-            var gestioncible = GetComponentInParent<GestionCible>();
-
+            Script.ModifierPointage(ValeurPointage);
             gestioncible.DétruireCible();
         }
     }

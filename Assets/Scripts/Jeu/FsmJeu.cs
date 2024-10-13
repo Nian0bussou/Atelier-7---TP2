@@ -50,8 +50,10 @@ public class FsmJeu : MonoBehaviour {
 
     private void Start() => ScriptGestionPointage = Pointage.GetComponent<GestionPointage>();
 
-    void Update() => ActionsÉtat[(int) ÉtatActuel]();
-
+    void Update() {
+        print($"{ÉtatActuel} : Nb cibles {NbCiblesNiveau}");
+        ActionsÉtat[(int) ÉtatActuel]();
+    }
     private void InitialiserActionsÉtat() {
         ActionsÉtat = new ActionFSM[(int) ÉtatJeu.NbÉtatsJeu];
         ActionsÉtat[(int) ÉtatJeu.InitialisationJeu] = InitialiserJeu;
@@ -156,9 +158,9 @@ public class FsmJeu : MonoBehaviour {
 
 
         foreach (var e in ÉlémentsNiveau) {
-            if (e == Vaisseau) { e.SetActive(false); }
-
-            Destroy(e);
+            if (e == Vaisseau) { e.SetActive(false); } else {
+                Destroy(e);
+            }
         }
     }
 
@@ -170,14 +172,15 @@ public class FsmJeu : MonoBehaviour {
 
         var cibls = CarteNiveau.Cibles;
 
-        var count = 0;
 
         foreach (var c in cibls) {
-            Instantiate(Cible, new(c.X, 0, c.Z), Quaternion.Euler(90, 0, 0));
-            count++;
+            var x = Instantiate(Cible, new(c.X, 0, c.Z), Quaternion.Euler(90, 0, 0));
+
+            x.GetComponent<GestionCible>().InitialiserComportementCible(ScriptGestionPointage, gameObject);
+
+            NbCiblesNiveau++;
         }
 
-        NbCiblesNiveau = count;
     }
 
 
@@ -185,8 +188,9 @@ public class FsmJeu : MonoBehaviour {
         // Cette méthode permet de détruire une cible. 
         // Elle est appelée lors de la collision du projectile avec une section de la cible (script GestionSectionCible)
         NbCiblesNiveau--;
-        print("in  destroy cible");
         Destroy(cible);
+
+        if (NbCiblesNiveau == 0) { EstNiveauTerminé = true; }
     }
 
     private void CréerMines() {
@@ -218,8 +222,7 @@ public class FsmJeu : MonoBehaviour {
         Instantiate(Destination, new(pos.X, 0, pos.Z), Quaternion.Euler(Vector3.zero));
     }
 
-    public void TrouverDestination() =>
-        EstJeuTerminé = true;
+    public void TrouverDestination() => EstJeuTerminé = true;
 
     private void InitialiserVaisseau() {
         Vaisseau.transform.SetPositionAndRotation(new Vector3(CarteNiveau.PositionSource.X, 0, CarteNiveau.PositionSource.Z), Quaternion.identity);
