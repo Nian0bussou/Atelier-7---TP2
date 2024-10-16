@@ -6,30 +6,20 @@ public class ActionVaisseau : MonoBehaviour {
     [SerializeField] float ForceImpulsionProjectile = 10;
     [SerializeField] float DélaiDeRecharge = 0.2f;
     [SerializeField] int NbProjectilesMax = 3;
-
-    // Attributs à compléter
-
-    float timesincelastshot = 0;
-
-    int nbProjectiles = 0;
-
-
     Rigidbody rvaisseau;
     GameObject Canon;
-
+    float timesincelastshot = 0;
+    int nbProjectiles = 0;
 
     private void Awake() {
         rvaisseau = GetComponent<Rigidbody>();
         Canon = GameObject.Find("Canon");
     }
 
-    private void Update() {
+    private void Update() =>
         timesincelastshot += Time.deltaTime;
-    }
 
-    public void Tirer() {
-        InstantiateProj();
-    }
+    public void Tirer() => InstantiateProj();
 
     public void DétruireProjectile(GameObject projectile) {
         nbProjectiles--;
@@ -39,13 +29,9 @@ public class ActionVaisseau : MonoBehaviour {
     void InstantiateProj() {
         if (timesincelastshot > DélaiDeRecharge && nbProjectiles < NbProjectilesMax) {
             var p = Instantiate(Projectile, Canon.transform.position, transform.rotation);
-
             nbProjectiles++;
             timesincelastshot = 0;
-
-            var script = p.GetComponent<ActionProjectile>();
-
-            script.InscrireProjectile(gameObject);
+            p.GetComponent<ActionProjectile>().InscrireProjectile(gameObject);
             ApplyForce(p);
         }
     }

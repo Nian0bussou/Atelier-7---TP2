@@ -5,9 +5,8 @@ public class GestionCible : MonoBehaviour {
     [SerializeField] float VitesseAngulaire = 180;
     FsmJeu gameManagerScript { get; set; }
 
-    void Update() {
+    void Update() =>
         transform.Rotate(new Vector3(0, 0, VitesseAngulaire) * Time.deltaTime);
-    }
 
 
     public void InitialiserComportementCible(GestionPointage scriptPointage, GameObject gameManager) {

@@ -44,30 +44,22 @@ public class MouvementVaisseau : MonoBehaviour {
     }
 
     private TrailRenderer IdentifierPropulseur(Transform[] dataTransform, string idPropulseur) {
-        // Cette méthodes retourne la référence sur le TrailRenderer
-        // lié à un propulseur (réacteur ou rétrofusée) identifié par son nom.
-
+        TrailRenderer tr = null;
         for (int i = 0;i < dataTransform.Length;i++) {
             var t = dataTransform[i];
             if (t.name == idPropulseur) {
-                return t.GetComponent<TrailRenderer>();
+                tr = t.GetComponent<TrailRenderer>();
+                break;
             }
         }
-        return null!; // not sure about that one
+        return tr; // not sure about that one
     }
 
     private void ÉteindrePropulseur(TrailRenderer[] propulseurs) {
-        // Cette méthode permet de parcourir un tableau de TrailRenderer pour les désactiver (les éteindre...)
-        foreach (TrailRenderer t in propulseurs) {
-            t.enabled = false;
-        } // ?
+        foreach (TrailRenderer t in propulseurs) t.enabled = false;
     }
 
     public void PivoterVersLaGauche(bool commutateur) {
-        // Cette méthode permet de faire pivoter le vaisseau vers la gauche par l'application de force (simulation physique)
-        // Le paramètre commutateur permet d'allumer ou d'éteindre les rétrofusées impliqués dans la manoeuvre (simulation visuelle)
-        // Indice : dans cette méthode, il est possible de "tricher" en réinitialisant la vitesse angulaire à la fin de la manoeuvre
-        //          cela rendra le vaisseau plus manoeuvrable.
         CorpsVaisseau.AddRelativeTorque(forceRétrofusée * Time.deltaTime * new Vector3(0, -1, 0), ForceMode.VelocityChange);
         Rétrofusées[RétroAvantGauche].enabled = commutateur;
         Rétrofusées[RétroArrièreDroite].enabled = commutateur;
@@ -75,10 +67,6 @@ public class MouvementVaisseau : MonoBehaviour {
     }
 
     public void PivoterVersLaDroite(bool commutateur) {
-        // Cette méthode permet de faire pivoter le vaisseau vers la droite par l'application de force (simulation physique)
-        // Le paramètre commutateur permet d'allumer ou d'éteindre les rétrofusées impliqués dans la manoeuvre (simulation visuelle)
-        // Indice : dans cette méthode, il est possible de "tricher" en réinitialisant la vitesse angulaire à la fin de la manoeuvre
-        //          cela rendra le vaisseau plus manoeuvrable.
         CorpsVaisseau.AddRelativeTorque(forceRétrofusée * Time.deltaTime * new Vector3(0, 1, 0), ForceMode.VelocityChange);
         Rétrofusées[RétroAvantDroite].enabled = commutateur;
         Rétrofusées[RétroArrièreGauche].enabled = commutateur;
@@ -86,24 +74,15 @@ public class MouvementVaisseau : MonoBehaviour {
     }
 
     public void Avancer(bool commutateur) {
-        // Cette méthode permet de faire avancer le vaisseau par l'application de force (simulation physique)
-        // Le paramètre commutateur permet d'allumer ou d'éteindre les réacteurs impliqués dans la manoeuvre (simulation visuelle)
-
         CorpsVaisseau.AddRelativeForce(forceRéacteurs * Time.deltaTime * new Vector3(0, 0, 1), ForceMode.VelocityChange);
-
         Réacteurs[RéacteurBasDroite].enabled = commutateur;
         Réacteurs[RéacteurBasGauche].enabled = commutateur;
-
         Rétrofusées[RétroArrièreDroite].enabled = commutateur;
         Rétrofusées[RétroArrièreGauche].enabled = commutateur;
-
         SetVelocityToZero();
     }
 
     public void Reculer(bool commutateur) {
-        // Cette méthode permet de faire reculer le vaisseau par l'application de force (simulation physique)
-        // Le paramètre commutateur permet d'allumer ou d'éteindre les rétrofusées impliqués dans la manoeuvre (simulation visuelle)
-
         CorpsVaisseau.AddRelativeForce(forceRéacteurs * Time.deltaTime * new Vector3(0, 0, -1), ForceMode.VelocityChange);
         Réacteurs[RéacteurHautDroite].enabled = commutateur;
         Réacteurs[RéacteurHautGauche].enabled = commutateur;
@@ -111,8 +90,6 @@ public class MouvementVaisseau : MonoBehaviour {
     }
 
     public void GlisserVersLaGauche(bool commutateur) {
-        // Cette méthode permet de faire glisser le vaisseau vers la gauche par l'application de force (simulation physique)
-        // Le paramètre commutateur permet d'allumer ou d'éteindre les rétrofusées impliqués dans la manoeuvre (simulation visuelle)
         CorpsVaisseau.AddRelativeForce(forceRéacteurs * Time.deltaTime * new Vector3(-1, 0, 0), ForceMode.VelocityChange);
         Rétrofusées[RétroAvantDroite].enabled = commutateur;
         Rétrofusées[RétroArrièreDroite].enabled = commutateur;
@@ -120,8 +97,6 @@ public class MouvementVaisseau : MonoBehaviour {
     }
 
     public void GlisserVersLaDroite(bool commutateur) {
-        // Cette méthode permet de faire glisser le vaisseau vers la droite  par l'application de force (simulation physique)
-        // Le paramètre commutateur permet d'allumer ou d'éteindre les rétrofusées impliqués dans la manoeuvre (simulation visuelle)
         CorpsVaisseau.AddRelativeForce(forceRéacteurs * Time.deltaTime * new Vector3(1, 0, 0), ForceMode.VelocityChange);
         Rétrofusées[RétroAvantGauche].enabled = commutateur;
         Rétrofusées[RétroArrièreGauche].enabled = commutateur;

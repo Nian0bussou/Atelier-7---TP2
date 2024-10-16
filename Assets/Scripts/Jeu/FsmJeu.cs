@@ -151,11 +151,6 @@ public class FsmJeu : MonoBehaviour {
     }
 
     private void NettoyerNiveau() {
-
-        // À compléter
-        // Cette méthode permet de désactiver le vaisseau et de détruire tous les objets instanciés dynamiquement de la scène.
-
-
         foreach (var e in ÉlémentsNiveau) {
             if (e == Vaisseau) { e.SetActive(false); } else {
                 Destroy(e);
@@ -164,31 +159,18 @@ public class FsmJeu : MonoBehaviour {
     }
 
     private void CréerCibles() {
-        // Cette méthode permet d'instancier les cibles du niveau.
-        // Indice 1 : l'objet CarteNiveau connait l'information nécessaire à la création des cibles.
-        // Indice 2 : N'oubliez pas d'initialiser l'attribut NbCiblesNiveau qui correspondera au nombre de cible devant être détruite
-        //            pour terminer le niveau.
-
         var cibls = CarteNiveau.Cibles;
-
-
         foreach (var c in cibls) {
             var x = Instantiate(Cible, new(c.X, 0, c.Z), Quaternion.Euler(90, 0, 0));
-
             x.GetComponent<GestionCible>().InitialiserComportementCible(ScriptGestionPointage, gameObject);
-
             NbCiblesNiveau++;
         }
-
     }
 
 
     public void DétruireCible(GameObject cible) {
-        // Cette méthode permet de détruire une cible. 
-        // Elle est appelée lors de la collision du projectile avec une section de la cible (script GestionSectionCible)
         NbCiblesNiveau--;
         Destroy(cible);
-
         if (NbCiblesNiveau == 0) { EstNiveauTerminé = true; }
     }
 
@@ -205,9 +187,6 @@ public class FsmJeu : MonoBehaviour {
     }
 
     private void CréerCaisses() {
-        // Cette méthode permet d'instancier les caisses formant le labyrinthe du niveau.
-        // Indice : l'objet CarteNiveau connait l'information nécessaire à la création des caisses.
-
         var cias = CarteNiveau.Caisses;
         foreach (var c in cias) {
             Instantiate(Caisse, new(c.X, 0, c.Z), Quaternion.Euler(Vector3.zero));
@@ -215,8 +194,6 @@ public class FsmJeu : MonoBehaviour {
     }
 
     private void CréerDestination() {
-        // Cette méthode permet d'instancier le prefab symbolisant la destination ultime.
-        // Indice : l'objet CarteNiveau connait l'information nécessaire à la création de ce GameObject.
         var pos = CarteNiveau.PositionDestination;
         Instantiate(Destination, new(pos.X, 0, pos.Z), Quaternion.Euler(Vector3.zero));
     }

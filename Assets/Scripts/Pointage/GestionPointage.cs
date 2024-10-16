@@ -9,9 +9,7 @@ public class GestionPointage : MonoBehaviour {
         ValeurPointage = 0;
     }
 
-    public void InitialiserPointage(int valeurInitiale) {
-        ValeurPointage = valeurInitiale;
-    }
+    public void InitialiserPointage(int valeurInitiale) => ValeurPointage = valeurInitiale;
 
     public void ModifierPointage(int modification) {
         ValeurPointage += modification;
