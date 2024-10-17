@@ -1,14 +1,18 @@
 using System;
 using Unity.Loading;
 using UnityEngine;
+// Olivier
+
+
 public class ComportementVaisseau : MonoBehaviour {
     const int PénalitéCollision = 5;
     GestionPointage ScriptPointage { get; set; }
     GameObject KarenGameManager { get; set; }
     [SerializeField] int dest_layer = 8;
     FsmJeu fsmJeu = null;
-    int caisselayer = 6;
-    int ciblelayer = 7;
+    readonly int caisselayer = 6;
+    readonly int ciblelayer = 7;
+    readonly int mineLayer = 11;
 
     public void InitialiserComportementVaisseau(GestionPointage scriptPointage, GameObject gameManager) {
         ScriptPointage = scriptPointage;
@@ -16,17 +20,22 @@ public class ComportementVaisseau : MonoBehaviour {
         fsmJeu = KarenGameManager.GetComponent<FsmJeu>();
     }
 
-    private void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.layer == caisselayer ||
-            collision.gameObject.layer == ciblelayer) {
+    private void OnCollisionEnter(Collision other) {
+        if (other.gameObject.layer == caisselayer ||
+            other.gameObject.layer == ciblelayer) {
             ScriptPointage.ModifierPointage(-PénalitéCollision);
         }
-        var conts = collision.contacts;
+        var conts = other.contacts;
         foreach (var contact in conts) {
             if (contact.otherCollider.gameObject.layer == dest_layer) {
                 fsmJeu.TrouverDestination();
             }
         }
+    }
 
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.layer == mineLayer) {
+            ScriptPointage.ModifierPointage(-( PénalitéCollision * 2 ));
+        }
     }
 }

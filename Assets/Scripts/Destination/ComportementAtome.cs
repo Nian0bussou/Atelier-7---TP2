@@ -5,9 +5,15 @@ using UnityEngine;
 public class ComportementAtome : MonoBehaviour {
     const int Nb…lectronsMin = 4;
     const int Nb…lectronsMax = 8;
-    [SerializeField] GameObject ModËle…lectron; //le prefab de l'Èlectron
+    [SerializeField] GameObject ModËle…lectron;
 
+
+    List<GameObject> Electrons;
     void Awake() {
-        // Cette mÈthode permet d'instancier un nombre alÈatoire d'Èlectrons (entre 4 et 8).
+        System.Random r = new();
+        var ns = r.Next(Nb…lectronsMin, Nb…lectronsMax + 1);
+        for (int i = 0;i < ns;i++) {
+            Electrons[i] = Instantiate(ModËle…lectron);
+        }
     }
 }

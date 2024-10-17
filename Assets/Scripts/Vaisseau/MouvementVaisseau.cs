@@ -1,6 +1,8 @@
 using System.Linq;
 using UnityEngine;
 
+// Olivier
+
 public class MouvementVaisseau : MonoBehaviour {
     const int NbRétrofusées = 6;
     const int NbRéacteurs = 4;
@@ -12,6 +14,7 @@ public class MouvementVaisseau : MonoBehaviour {
     const int RétroArrièreDroite = 3;
     const int RétroHautGauche = 4;
     const int RétroHautDroite = 5;
+
     const int RéacteurHautGauche = 0;
     const int RéacteurHautDroite = 1;
     const int RéacteurBasGauche = 2;
@@ -84,8 +87,8 @@ public class MouvementVaisseau : MonoBehaviour {
 
     public void Reculer(bool commutateur) {
         CorpsVaisseau.AddRelativeForce(forceRéacteurs * Time.deltaTime * new Vector3(0, 0, -1), ForceMode.VelocityChange);
-        Réacteurs[RéacteurHautDroite].enabled = commutateur;
-        Réacteurs[RéacteurHautGauche].enabled = commutateur;
+        Rétrofusées[RétroHautDroite].enabled = commutateur;
+        Rétrofusées[RétroHautGauche].enabled = commutateur;
         SetVelocityToZero();
     }
 

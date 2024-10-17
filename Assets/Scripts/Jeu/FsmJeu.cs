@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Maxime
+
 public class FsmJeu : MonoBehaviour {
     #region Attributs modifiables dans l'éditeur
     [SerializeField] GameObject PanneauMessage;//le gameObject servant à afficher le message de fin
@@ -178,12 +180,18 @@ public class FsmJeu : MonoBehaviour {
         // Cette méthode est à compléter uniquement si vous faites le bonus
         // Cette méthode permet d'instancier les mines présentent dans le niveau.
         // Indice : l'objet CarteNiveau connait l'information nécessaire à la création des mines.
+        var mines = CarteNiveau.Mines;
+        foreach (var m in mines) {
+            var x = Instantiate(Mine, new(m.X, 0, m.Z), Quaternion.Euler(0, 0, 0));
+            x.GetComponent<ComportementMine>().InitialiserComportementMine(gameObject);
+        }
     }
 
     public void DétruireMine(GameObject mine) {
         // Cette méthode est à compléter uniquement si vous faites le bonus
         // Cette méthode permet de détruire une mine. 
         // Elle est appelée lors que le vaisseau passe trop près de la mine (script ComportementMine). 
+        Destroy(mine);
     }
 
     private void CréerCaisses() {
@@ -198,7 +206,10 @@ public class FsmJeu : MonoBehaviour {
         Instantiate(Destination, new(pos.X, 0, pos.Z), Quaternion.Euler(Vector3.zero));
     }
 
-    public void TrouverDestination() => EstJeuTerminé = true;
+    public void TrouverDestination() {
+        if (NbCiblesNiveau == 0)
+            EstJeuTerminé = true;
+    }
 
     private void InitialiserVaisseau() {
         Vaisseau.transform.SetPositionAndRotation(new Vector3(CarteNiveau.PositionSource.X, 0, CarteNiveau.PositionSource.Z), Quaternion.identity);

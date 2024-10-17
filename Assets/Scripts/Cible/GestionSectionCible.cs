@@ -1,6 +1,8 @@
 using Unity.Loading;
 using UnityEngine;
 
+// Maxime & Olivier
+
 public class GestionSectionCible : MonoBehaviour {
     [SerializeField] int ValeurPointage;
     [SerializeField] int projectileLayer = 9;

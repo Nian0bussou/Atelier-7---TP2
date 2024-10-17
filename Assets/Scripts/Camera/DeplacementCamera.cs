@@ -1,5 +1,7 @@
 using UnityEngine;
 
+// Maxime
+
 public class DeplacementCamera : MonoBehaviour {
     GameObject Vaisseau = null;
     bool EstLiéeAuVaisseau = false;

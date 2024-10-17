@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
+// Olivier
+
 public class ActionProjectile : MonoBehaviour {
     [SerializeField] float DuréeDeVie = 1f;
     [SerializeField] GameObject Explosion;

@@ -1,6 +1,8 @@
 using System.Linq;
 using UnityEngine;
 
+// Maxime
+
 public class GestionCible : MonoBehaviour {
     [SerializeField] float VitesseAngulaire = 180;
     FsmJeu gameManagerScript { get; set; }
